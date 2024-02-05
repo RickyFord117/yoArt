@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../store/auth-context";
 
+import AuthContent from "../../components/auth/AuthContent";
+
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
@@ -18,7 +20,7 @@ function LoginScreen() {
     // return <LoadingOverlay />
   }
 
-  // return <AuthContent />
+  return <AuthContent />;
 }
 
 export default LoginScreen;

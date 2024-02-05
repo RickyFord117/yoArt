@@ -7,12 +7,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
+import LoginScreen from "./screens/auth/LoginScreen";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
-  return <Stack.Navigator></Stack.Navigator>;
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Login' component={LoginScreen} />
+    </Stack.Navigator>
+  );
 }
 
 function AuthenticatedStack() {
