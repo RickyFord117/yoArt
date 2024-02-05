@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 
 import AuthForm from "./AuthForm";
+import Button from "../ui/Button";
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
@@ -13,9 +14,54 @@ function AuthContent({ isLogin, onAuthenticate }) {
     confirmPassword: false,
   });
 
+  function switchAuthMode() {
+    if (isLogin) {
+      navigation.replace("Signup");
+    } else {
+      navigation.replace("Login");
+    }
+  }
+
+  function submitHanlder(credentials) {
+    let { email, confirmEmail, password, confirmPassword } = credentials;
+
+    email = email.trim();
+    password = password.trim();
+
+    const emailIsValid = email.includes("@"); //replace is email validation library?
+    const passwordIsValid = password.length > 6;
+    const emailsAreEqual = email === confirmEmail;
+    const passwordsAreEqual = password === confirmPassword;
+
+    if (
+      !emailIsValid ||
+      !passwordIsValid ||
+      (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+    ) {
+      Alert.alert("Invalid input", "Please check your entered credentials.");
+      setCredentialsInvalid({
+        email: !emailIsValid,
+        confirmEmail: !emailIsValid || !emailsAreEqual,
+        password: !passwordIsValid,
+        confirmPassword: !passwordIsValid || !passwordsAreEqual,
+      });
+      return;
+    }
+    onAuthenticate({ email, password });
+  }
+
   return (
     <View style={styles.authContent}>
-      <AuthForm isLogin={isLogin} credentialsInvalid={credentialsInvalid} />
+      <AuthForm
+        isLogin={isLogin}
+        onSubmit={submitHanlder}
+        credentialsInvalid={credentialsInvalid}
+      />
+      <View>
+        <Button onPress={switchAuthMode}>
+          {isLogin ? "Create a new user" : "Log in"}
+        </Button>
+      </View>
     </View>
   );
 }

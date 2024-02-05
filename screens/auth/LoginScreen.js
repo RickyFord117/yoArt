@@ -20,7 +20,7 @@ function LoginScreen() {
     // return <LoadingOverlay />
   }
 
-  return <AuthContent />;
+  return <AuthContent isLogin onAuthenticate={loginHandler} />;
 }
 
 export default LoginScreen;
