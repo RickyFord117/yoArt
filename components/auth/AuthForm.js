@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Input from "../ui/Input";
 import Button from "../ui/Button";
@@ -47,7 +47,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     <View>
       <View>
         <Input
-          input='Email Address'
+          label='Email Address'
           onUpdateValue={updateInputValueHandler.bind(this, "email")}
           value={enteredEmail}
           keyboardType='email-address'
@@ -81,7 +81,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
             isInvalid={passwordsDontMatch}
           />
         )}
-        <View>
+        <View style={styles.buttons}>
           <Button onPress={submitHanlder}>
             {isLogin ? "Log in" : "Sign up"}
           </Button>
@@ -92,3 +92,9 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
 }
 
 export default AuthForm;
+
+const styles = StyleSheet.create({
+  buttons: {
+    marginTop: 12,
+  },
+});
