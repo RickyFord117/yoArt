@@ -1,20 +1,67 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { useState, useContext, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SplashScreen from "expo-splash-screen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+import AuthContextProvider, { AuthContext } from "./store/auth-context";
+
+SplashScreen.preventAutoHideAsync();
+const Stack = createNativeStackNavigator();
+
+function AuthStack() {
+  return <Stack.Navigator></Stack.Navigator>;
+}
+
+function AuthenticatedStack() {
+  const authCtx = useContext(AuthContext);
+  return <Stack.Navigator></Stack.Navigator>;
+}
+
+function Navigation() {
+  const authCtx = useContext(AuthContext);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function Root() {
+  const [appReady, setAppReady] = useState(false);
+  const authCtx = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchToken() {
+      const storedToken = await AsyncStorage.getItem("token");
+
+      if (storedToken) {
+        authCtx.authenticate(storedToken);
+      }
+
+      setAppReady(true);
+    }
+
+    fetchToken();
+  }, []);
+
+  if (appReady) {
+    SplashScreen.hideAsync();
+  }
+
+  return <Navigation />;
+}
+
+export default function App() {
+  return (
+    <>
+      <AuthContextProvider>
+        <Root />
+      </AuthContextProvider>
+    </>
+  );
+}
