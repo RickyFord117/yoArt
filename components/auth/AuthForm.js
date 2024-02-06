@@ -8,12 +8,12 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredConfrimPassword, setEnteredConfrimPassword] = useState("");
+  const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
 
   const {
     email: emailIsInvalid,
     confirmEmail: emailsDontMatch,
-    password: passwordIsValid,
+    password: passwordIsInvalid,
     confirmPassword: passwordsDontMatch,
   } = credentialsInvalid;
 
@@ -29,7 +29,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         setEnteredPassword(enteredValue);
         break;
       case "confirmPassword":
-        setEnteredConfrimPassword(enteredValue);
+        setEnteredConfirmPassword(enteredValue);
         break;
     }
   }
@@ -39,7 +39,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       email: enteredEmail,
       confirmEmail: enteredConfirmEmail,
       password: enteredPassword,
-      confirm: enteredConfrimPassword,
+      confirmPassword: enteredConfirmPassword,
     });
   }
 
@@ -67,7 +67,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           onUpdateValue={updateInputValueHandler.bind(this, "password")}
           secure
           value={enteredPassword}
-          isInvalid={passwordIsValid}
+          isInvalid={passwordIsInvalid}
         />
         {!isLogin && (
           <Input
@@ -77,7 +77,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
               "confirmPassword"
             )}
             secure
-            value={enteredConfrimPassword}
+            value={enteredConfirmPassword}
             isInvalid={passwordsDontMatch}
           />
         )}
