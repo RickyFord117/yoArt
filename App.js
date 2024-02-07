@@ -10,6 +10,7 @@ import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
 import HomeScreen from "./screens/HomeScreen";
+import IconButton from "./components/ui/IconButton";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,20 @@ function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen
+        name='Home'
+        component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon='exit'
+              color={tintColor}
+              size={36}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
