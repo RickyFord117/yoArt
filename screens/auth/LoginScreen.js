@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { Alert } from "react-native";
 
 import AuthContent from "../../components/auth/AuthContent";
 import { login } from "../../util/auth";
@@ -16,7 +15,7 @@ function LoginScreen() {
       const token = await login(email, password);
       authCtx.authenticate(token);
     } catch (error) {
-      Alert.alert(
+      alert(
         "Authentication failed",
         "Could not log in, please check your credentials and try again"
       );

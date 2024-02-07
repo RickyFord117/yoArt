@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { Alert } from "react-native";
 
 import { AuthContext } from "../../store/auth-context";
 import AuthContent from "../../components/auth/AuthContent";
@@ -16,7 +15,7 @@ function SignupScreen() {
       const token = await createUser(email, password);
       authCtx.authenticate(token);
     } catch (error) {
-      Alert.alert(
+      alert(
         "Authentication failed",
         "Could not create user, please try again later"
       );

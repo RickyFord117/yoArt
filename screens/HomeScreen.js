@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
@@ -37,7 +37,7 @@ function HomeScreen() {
         setPromptResponseUri(response.output[0]);
       }
     } catch (error) {
-      Alert.alert(
+      alert(
         "Failed to generate image!",
         "Could not generate image, please try again later"
       );
