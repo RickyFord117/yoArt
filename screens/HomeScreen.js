@@ -31,11 +31,8 @@ function HomeScreen() {
     setIsFetchingImage(true);
 
     try {
-      const response = await sendPrompt(prompt);
-
-      if (response.status == "success") {
-        setPromptResponseUri(response.output[0]);
-      }
+      const dataUri = await sendPrompt("stable-diffusion-v1-6", prompt);
+      setPromptResponseUri(dataUri);
     } catch (error) {
       alert(
         "Failed to generate image!",
