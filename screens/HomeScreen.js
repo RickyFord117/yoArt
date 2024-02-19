@@ -10,6 +10,7 @@ function HomeScreen() {
   const [prompt, setPrompt] = useState("");
   const [promptResponseUri, setPromptResponseUri] = useState(null);
   const [invalidInput, setInvalidInput] = useState(false);
+  const [retries, setRetries] = useState(3);
 
   function updatePromptHandler(enteredPrompt) {
     // validation goes here..
@@ -43,11 +44,30 @@ function HomeScreen() {
     setIsFetchingImage(false);
   }
 
+  async function onRetryPrompt() {}
+
   function PromptResult() {
     return (
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: promptResponseUri }} />
       </View>
+    );
+  }
+
+  function SendPromptButton() {
+    return <Button onPress={onSubmitPrompt}>Go!</Button>;
+  }
+
+  function RetryPromptButton() {
+    return (
+      <>
+        <Button onPress={onRetryPrompt}>Retry!</Button>
+        <Text>
+          {retries.toString() > 1
+            ? retries.toString() + " retries left."
+            : retries.toString() + " retry left."}
+        </Text>
+      </>
     );
   }
 
@@ -61,7 +81,7 @@ function HomeScreen() {
         value={prompt}
         isInvalid={invalidInput}
       />
-      <Button onPress={onSubmitPrompt}>Go!</Button>
+      {promptResponseUri ? <RetryPromptButton /> : <SendPromptButton />}
       {promptResponseUri && <PromptResult />}
     </View>
   );
