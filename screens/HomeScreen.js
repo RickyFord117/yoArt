@@ -52,7 +52,10 @@ function HomeScreen({ navigation }) {
   }
 
   function onAcceptImage() {
-    navigation.navigate("Edit");
+    navigation.navigate("Edit", {
+      imageUri: promptResponseUri,
+      promptText: prompt,
+    });
   }
 
   function PromptResult() {
