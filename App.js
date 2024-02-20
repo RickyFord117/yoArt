@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
@@ -10,6 +9,7 @@ import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
 import HomeScreen from "./screens/HomeScreen";
+import EditScreen from "./screens/EditScreen";
 import IconButton from "./components/ui/IconButton";
 
 SplashScreen.preventAutoHideAsync();
@@ -41,6 +41,22 @@ function AuthenticatedStack() {
             />
           ),
         }}
+      />
+      <Stack.Screen
+        name='Edit'
+        component={EditScreen}
+        options={({ navigation }) => ({
+          headerLeft: ({ tintColor }) => (
+            <IconButton
+              icon='chevron-back-outline'
+              color={tintColor}
+              size={36}
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            />
+          ),
+        })}
       />
     </Stack.Navigator>
   );

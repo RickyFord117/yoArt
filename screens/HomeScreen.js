@@ -5,7 +5,7 @@ import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { sendPrompt } from "../util/SDTextToImage";
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const [isFetchingImage, setIsFetchingImage] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [promptResponseUri, setPromptResponseUri] = useState(null);
@@ -44,13 +44,25 @@ function HomeScreen() {
     setIsFetchingImage(false);
   }
 
-  async function onRetryPrompt() {}
+  async function onRetryPrompt() {
+    if (retries > 0) {
+      onSubmitPrompt();
+      setRetries((retries) => retries - 1);
+    }
+  }
+
+  function onAcceptImage() {
+    navigation.navigate("Edit");
+  }
 
   function PromptResult() {
     return (
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: promptResponseUri }} />
-      </View>
+      <>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: promptResponseUri }} />
+        </View>
+        <Button onPress={onAcceptImage}>Accept Image!</Button>
+      </>
     );
   }
 
@@ -63,7 +75,7 @@ function HomeScreen() {
       <>
         <Button onPress={onRetryPrompt}>Retry!</Button>
         <Text>
-          {retries.toString() > 1
+          {retries == 1
             ? retries.toString() + " retries left."
             : retries.toString() + " retry left."}
         </Text>
