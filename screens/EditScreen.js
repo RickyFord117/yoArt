@@ -7,9 +7,11 @@ function EditScreen({ route }) {
 
   return (
     <View style={styles.rootContainer}>
-      <View style={styles.imageContainer}>
+      <View style={styles.textContainer}>
         <Text style={styles.imageTitle}>You're image</Text>
         <Text style={styles.promptText}>{promptText}</Text>
+      </View>
+      <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: imageUri }} />
       </View>
       <View style={styles.formContainer}>
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
+  textContainer: {},
   imageContainer: {
     margin: 24,
     overflow: "hidden",
