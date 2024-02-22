@@ -14,6 +14,7 @@ import IconButton from "./components/ui/IconButton";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
+const PERSISTENCE_KEY = "NAVIGATION_STATE_V1";
 
 function AuthStack() {
   return (
@@ -63,10 +64,40 @@ function AuthenticatedStack() {
 }
 
 function Navigation() {
+  const [appReady, setAppReady] = useState(false);
+  const [initialState, setInitialState] = useState();
   const authCtx = useContext(AuthContext);
 
+  useEffect(() => {
+    async function restoreState() {
+      try {
+        const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+        const state = savedStateString
+          ? JSON.parse(savedStateString)
+          : undefined;
+
+        if (state !== undefined) {
+          setInitialState(state);
+        }
+      } finally {
+        setAppReady(true);
+      }
+    }
+
+    restoreState();
+  }, [appReady]);
+
+  if (!appReady) {
+    return null;
+  }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      initialState={initialState}
+      onStateChange={(state) =>
+        AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+      }
+    >
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>

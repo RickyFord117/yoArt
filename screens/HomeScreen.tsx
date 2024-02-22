@@ -12,7 +12,7 @@ function HomeScreen({ navigation }) {
   const [invalidInput, setInvalidInput] = useState(false);
   const [retries, setRetries] = useState(3);
 
-  function updatePromptHandler(enteredPrompt) {
+  function updatePromptHandler(inputType: string, enteredPrompt: string) {
     // validation goes here..
     if (invalidInput == true && prompt.length > 15) {
       setInvalidInput(false);
@@ -88,7 +88,7 @@ function HomeScreen({ navigation }) {
       <Text style={styles.title}>Welcome to YoArt!</Text>
       <Input
         label='Enter a prompt'
-        onUpdateValue={updatePromptHandler.bind(this)}
+        onUpdateValue={updatePromptHandler}
         keyboardType='default'
         value={prompt}
         isInvalid={invalidInput}
