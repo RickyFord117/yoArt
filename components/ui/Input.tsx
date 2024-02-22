@@ -6,15 +6,7 @@ import {
   KeyboardTypeOptions,
 } from "react-native";
 
-interface PropTypes {
-  label: string;
-  keyboardType?: string;
-  secure?: boolean;
-  onUpdateValue: (inputType: string, enteredValue: string) => void;
-  inputType?: string;
-  value: string;
-  isInvalid: boolean;
-}
+import { InputPropTypes } from "@/interfaces/types";
 
 function Input({
   label,
@@ -24,9 +16,9 @@ function Input({
   inputType,
   value,
   isInvalid,
-}: PropTypes) {
+}: InputPropTypes) {
   function handleTextChange(text: string) {
-    onUpdateValue(text, inputType);
+    onUpdateValue(inputType, text);
   }
 
   return (
