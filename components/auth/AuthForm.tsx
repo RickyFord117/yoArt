@@ -48,7 +48,8 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       <View>
         <Input
           label='Email Address'
-          onUpdateValue={updateInputValueHandler.bind(this, "email")}
+          onUpdateValue={updateInputValueHandler}
+          inputType={"email"}
           value={enteredEmail}
           keyboardType='email-address'
           isInvalid={emailIsInvalid}
@@ -56,7 +57,8 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         {!isLogin && (
           <Input
             label='Confirm Email Address'
-            onUpdateValue={updateInputValueHandler.bind(this, "confirmEmail")}
+            onUpdateValue={updateInputValueHandler}
+            inputType={"confirmEmail"}
             value={enteredConfirmEmail}
             keyboardType='email-address'
             isInvalid={emailsDontMatch}
@@ -64,7 +66,8 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         <Input
           label='password'
-          onUpdateValue={updateInputValueHandler.bind(this, "password")}
+          onUpdateValue={updateInputValueHandler}
+          inputType={"password"}
           secure
           value={enteredPassword}
           isInvalid={passwordIsInvalid}
@@ -72,10 +75,8 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         {!isLogin && (
           <Input
             label='Confirm Password'
-            onUpdateValue={updateInputValueHandler.bind(
-              this,
-              "confirmPassword"
-            )}
+            onUpdateValue={updateInputValueHandler}
+            inputType={"confirmPassword"}
             secure
             value={enteredConfirmPassword}
             isInvalid={passwordsDontMatch}

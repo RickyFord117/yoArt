@@ -23,7 +23,7 @@ function HomeScreen({ navigation }) {
 
   async function onSubmitPrompt() {
     if (prompt.length < 15) {
-      alert("Prompt too short!", "Please enter a longer prompt.");
+      alert("Prompt too short!");
       setInvalidInput(true);
 
       return;
@@ -35,10 +35,7 @@ function HomeScreen({ navigation }) {
       const dataUri = await sendPrompt("stable-diffusion-v1-6", prompt);
       setPromptResponseUri(dataUri);
     } catch (error) {
-      alert(
-        "Failed to generate image!",
-        "Could not generate image, please try again later"
-      );
+      alert("Failed to generate image!");
     }
 
     setIsFetchingImage(false);

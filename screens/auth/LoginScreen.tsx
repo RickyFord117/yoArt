@@ -8,17 +8,14 @@ function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
 
-  async function loginHandler({ email, password }) {
+  async function loginHandler(email: string, password: string) {
     setIsAuthenticating(true);
 
     try {
       const token = await login(email, password);
       authCtx.authenticate(token);
     } catch (error) {
-      alert(
-        "Authentication failed",
-        "Could not log in, please check your credentials and try again"
-      );
+      alert("Authentication failed");
     }
 
     setIsAuthenticating(false);

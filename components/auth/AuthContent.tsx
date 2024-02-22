@@ -1,12 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import AuthForm from "./AuthForm";
 import Button from "../ui/Button";
+import { RootStackParamList } from "@/interfaces/types";
 
-function AuthContent({ isLogin, onAuthenticate }) {
-  const navigation = useNavigation();
+interface PropTypes {
+  isLogin?: boolean;
+  onAuthenticate: (email: string, password: string) => Promise<void>;
+}
+
+function AuthContent({ isLogin, onAuthenticate }: PropTypes) {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
@@ -47,7 +54,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    onAuthenticate(email, password);
   }
 
   return (
