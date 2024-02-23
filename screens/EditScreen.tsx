@@ -7,15 +7,19 @@ function EditScreen({ route }) {
 
   return (
     <View style={styles.rootContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.imageTitle}>You're image</Text>
-        <Text style={styles.promptText}>{promptText}</Text>
+      <View style={styles.leftSide}>
+        <View style={styles.textContainer}>
+          <Text style={styles.imageTitle}>You're image:</Text>
+          <Text style={styles.promptText}>{promptText}</Text>
+        </View>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: imageUri }} />
+        </View>
       </View>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: imageUri }} />
-      </View>
-      <View style={styles.formContainer}>
-        <Form />
+      <View style={styles.rightSide}>
+        <View style={styles.formContainer}>
+          <Form />
+        </View>
       </View>
     </View>
   );
@@ -26,15 +30,33 @@ export default EditScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    flexDirection: "row",
   },
-  textContainer: {},
+  leftSide: {
+    flex: 1,
+    alignItems: "center",
+  },
+  rightSide: {
+    flex: 1,
+  },
+  textContainer: {
+    paddingBottom: 80,
+    paddingTop: 100,
+    alignItems: "center",
+  },
   imageContainer: {
-    margin: 24,
     overflow: "hidden",
     borderRadius: 12,
+    width: 800,
+    height: 800,
   },
-  imageTitle: {},
-  promptText: {},
+  imageTitle: {
+    fontSize: 24,
+  },
+  promptText: {
+    fontSize: 18,
+    padding: 12,
+  },
   image: {
     width: 800,
     height: 800,
