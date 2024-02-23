@@ -20,3 +20,8 @@ export interface MessageInputPropTypes {
   onUpdateValue: (enteredValue: string) => void;
   isInvalid: boolean;
 }
+
+export interface EditFormParamList {
+  onTextEntered: (enteredText: string) => void;
+  onSubmit: () => void;
+}

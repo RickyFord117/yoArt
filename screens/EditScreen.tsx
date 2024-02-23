@@ -1,14 +1,23 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+
 import Form from "../components/ui/Form";
 
 function EditScreen({ route }) {
   const imageUri = route.params?.imageUri;
   const promptText = route.params?.promptText;
 
+  function onTextEntered(text: string) {
+    console.log(text);
+  }
+
+  function onFormSubmitted() {
+    //confirm
+  }
+
   return (
     <View style={styles.rootContainer}>
       <View style={styles.leftSide}>
-        <View style={styles.textContainer}>
+        <View style={styles.rightTextContainer}>
           <Text style={styles.imageTitle}>You're image:</Text>
           <Text style={styles.promptText}>{promptText}</Text>
         </View>
@@ -17,8 +26,11 @@ function EditScreen({ route }) {
         </View>
       </View>
       <View style={styles.rightSide}>
+        <View style={styles.leftTextContainer}>
+          <Text style={styles.imageTitle}>You're Message:</Text>
+        </View>
         <View style={styles.formContainer}>
-          <Form />
+          <Form onTextEntered={onTextEntered} onSubmit={onFormSubmitted} />
         </View>
       </View>
     </View>
@@ -36,12 +48,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  rightSide: {
-    flex: 1,
-  },
-  textContainer: {
-    paddingBottom: 80,
-    paddingTop: 100,
+  leftTextContainer: {
+    padding: 50,
     alignItems: "center",
   },
   imageContainer: {
@@ -60,6 +68,14 @@ const styles = StyleSheet.create({
   image: {
     width: 800,
     height: 800,
+  },
+  rightSide: {
+    flex: 1,
+  },
+  rightTextContainer: {
+    paddingBottom: 80,
+    paddingTop: 100,
+    alignItems: "center",
   },
   formContainer: {},
 });
