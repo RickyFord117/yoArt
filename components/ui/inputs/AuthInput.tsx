@@ -8,7 +8,7 @@ import {
 
 import { InputPropTypes } from "@/interfaces/types";
 
-function Input({
+function AuthInput({
   label,
   keyboardType,
   secure,
@@ -38,7 +38,7 @@ function Input({
   );
 }
 
-export default Input;
+export default AuthInput;
 
 const styles = StyleSheet.create({
   inputContainer: {

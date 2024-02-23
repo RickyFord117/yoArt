@@ -14,3 +14,9 @@ export interface InputPropTypes {
   value: string;
   isInvalid: boolean;
 }
+
+export interface MessageInputPropTypes {
+  value: string;
+  onUpdateValue: (enteredValue: string) => void;
+  isInvalid: boolean;
+}

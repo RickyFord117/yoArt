@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import Input from "../components/ui/Input";
+import Input from "../components/ui/inputs/AuthInput";
 import Button from "../components/ui/Button";
 import { sendPrompt } from "../util/SDTextToImage";
 
