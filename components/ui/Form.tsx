@@ -8,6 +8,7 @@ import { EditFormParamList } from "@/interfaces/types";
 function Form({ onTextEntered, onSubmit, onDownload }: EditFormParamList) {
   const [message, setMessage] = useState("");
   const [messageInvalid, setMessageInvalid] = useState(false);
+  const [somethingSubmitted, setSomethingSubmitted] = useState(false);
 
   function updateInputValueHandler(text: string) {
     if (messageInvalid && message.length >= 15) {
@@ -24,6 +25,7 @@ function Form({ onTextEntered, onSubmit, onDownload }: EditFormParamList) {
       return;
     }
 
+    setSomethingSubmitted(true);
     onSubmit();
   }
 
@@ -32,9 +34,9 @@ function Form({ onTextEntered, onSubmit, onDownload }: EditFormParamList) {
       setMessageInvalid(true);
 
       return;
+    } else if (somethingSubmitted) {
+      onDownload();
     }
-
-    onDownload();
   }
 
   return (
