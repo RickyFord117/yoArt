@@ -5,7 +5,7 @@ import Button from "./Button";
 import MessageInput from "./inputs/MessageInput";
 import { EditFormParamList } from "@/interfaces/types";
 
-function Form({ onTextEntered, onSubmit }: EditFormParamList) {
+function Form({ onTextEntered, onSubmit, onDownload }: EditFormParamList) {
   const [message, setMessage] = useState("");
   const [messageInvalid, setMessageInvalid] = useState(false);
 
@@ -27,6 +27,8 @@ function Form({ onTextEntered, onSubmit }: EditFormParamList) {
     onSubmit();
   }
 
+  function onDownloadHandler() {}
+
   return (
     <View style={styles.formContainer}>
       <MessageInput
@@ -34,8 +36,9 @@ function Form({ onTextEntered, onSubmit }: EditFormParamList) {
         onUpdateValue={updateInputValueHandler}
         isInvalid={messageInvalid}
       />
-      <View style={styles.button}>
+      <View style={styles.buttons}>
         <Button onPress={onSubmitHandler}>Confirm</Button>
+        <Button onPress={onDownloadHandler}>Download</Button>
       </View>
     </View>
   );
@@ -45,7 +48,9 @@ export default Form;
 
 const styles = StyleSheet.create({
   formContainer: {},
-  button: {
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
     padding: 12,
   },

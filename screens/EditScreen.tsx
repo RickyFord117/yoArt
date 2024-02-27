@@ -1,31 +1,42 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createCanvas, loadImage } from "canvas";
 
 import Form from "../components/ui/Form";
 
 function EditScreen({ route }) {
   const [messageText, setMessageText] = useState("");
-  const [canvasDataUrl, setCanvasDataUrl] = useState("");
+  const [propmtImage, setPromptImage] = useState(null);
+  const [canvasDataUrl, setCanvasDataUrl] = useState(null);
 
   const imageUri = route.params?.imageUri;
   const promptText = route.params?.promptText;
 
   const canvas = createCanvas(800, 800);
   const ctx = canvas.getContext("2d");
+  ctx.font = "30px Impact";
 
-  loadImage(imageUri).then((image) => {
-    ctx.drawImage(image, 0, 0, 800, 800);
-    setCanvasDataUrl(canvas.toDataURL());
-  });
+  useEffect(() => {
+    if (!canvasDataUrl)
+      loadImage(imageUri).then((image) => {
+        setPromptImage(image);
+        ctx.drawImage(image, 0, 0, 800, 800);
+        setCanvasDataUrl(canvas.toDataURL());
+      });
+  }, [canvasDataUrl]);
 
   function onTextEntered(text: string) {
     setMessageText(text);
   }
 
   function onFormSubmitted() {
-    //confirm
+    ctx.drawImage(propmtImage, 0, 0, 800, 800);
+    ctx.fillStyle = "red";
+    ctx.fillText(messageText, 50, 100);
+    setCanvasDataUrl(canvas.toDataURL());
   }
+
+  function onDownload() {}
 
   return (
     <View style={styles.rootContainer}>
@@ -36,7 +47,6 @@ function EditScreen({ route }) {
         </View>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: canvasDataUrl }} />
-          <Text style={styles.messageText}>{messageText}</Text>
         </View>
       </View>
 
@@ -45,7 +55,11 @@ function EditScreen({ route }) {
           <Text style={styles.imageTitle}>Your Message:</Text>
         </View>
         <View style={styles.formContainer}>
-          <Form onTextEntered={onTextEntered} onSubmit={onFormSubmitted} />
+          <Form
+            onTextEntered={onTextEntered}
+            onSubmit={onFormSubmitted}
+            onDownload={onDownload}
+          />
         </View>
       </View>
     </View>

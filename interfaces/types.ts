@@ -24,4 +24,5 @@ export interface MessageInputPropTypes {
 export interface EditFormParamList {
   onTextEntered: (enteredText: string) => void;
   onSubmit: () => void;
+  onDownload: () => void;
 }
