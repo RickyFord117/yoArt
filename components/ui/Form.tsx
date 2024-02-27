@@ -27,7 +27,15 @@ function Form({ onTextEntered, onSubmit, onDownload }: EditFormParamList) {
     onSubmit();
   }
 
-  function onDownloadHandler() {}
+  function onDownloadHandler() {
+    if (!messageInvalid && message.length < 15) {
+      setMessageInvalid(true);
+
+      return;
+    }
+
+    onDownload();
+  }
 
   return (
     <View style={styles.formContainer}>

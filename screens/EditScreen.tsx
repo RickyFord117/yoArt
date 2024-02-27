@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { createCanvas, loadImage } from "canvas";
+import * as FileSaver from "file-saver";
 
 import Form from "../components/ui/Form";
 
@@ -36,7 +37,18 @@ function EditScreen({ route }) {
     setCanvasDataUrl(canvas.toDataURL());
   }
 
-  function onDownload() {}
+  async function onDownload() {
+    try {
+      // Convert the dataURL to a Blob
+      const blob = await (await fetch(canvasDataUrl)).blob();
+
+      // Use FileSaver.js to save the Blob as a file
+      FileSaver.saveAs(blob, "canvas-image.png");
+    } catch (error) {
+      console.error("Error capturing and saving canvas:", error);
+      alert("Download and Save Failed");
+    }
+  }
 
   return (
     <View style={styles.rootContainer}>
